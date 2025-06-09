@@ -45,6 +45,9 @@ config :spark,
 
 config :tunez,
   ecto_repos: [Tunez.Repo],
+  # QUESTION: If I wanted to have microseconds in the timestamps, would I need to change this?
+  # ANSWER: From what I see, the codegen create timestamps with microseconds using this type.
+  # QUESTION: If I changed this to microseconds after running the migrations would that create a problem?
   generators: [timestamp_type: :utc_datetime],
   ash_domains: [Tunez.Music]
 
