@@ -15,14 +15,19 @@ defmodule Tunez.Music.Artist do
     #   primary? true
     # end
 
-    # update :update do
-    #   accept [:name, :biography]
-    # end
+    update :update do
+      # This is needed for the `previous_names` logic, but I'm not sure the real impact. Books says that will be talked about in chapter 10.
+      require_atomic? false
+
+      accept [:name, :biography]
+
+      change Tunez.Music.Changes.UpdatePreviousNames, where: [changing(:name)]
+    end
 
     # destroy :destroy do
     # end
 
-    defaults [:create, :read, :update, :destroy]
+    defaults [:create, :read, :destroy]
     default_accept [:name, :biography]
   end
 
@@ -33,9 +38,19 @@ defmodule Tunez.Music.Artist do
       allow_nil? false
     end
 
+    attribute :previous_names, {:array, :string} do
+      default []
+    end
+
     attribute :biography, :string
 
     create_timestamp :inserted_at
     update_timestamp :updated_at
+  end
+
+  relationships do
+    has_many :albums, Tunez.Music.Album do
+      sort year_released: :desc
+    end
   end
 end
