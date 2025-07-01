@@ -17,6 +17,13 @@ defmodule Tunez.Music do
       define :update_artist, action: :update
 
       define :destroy_artist, action: :destroy
+
+      define :search_artists,
+        action: :search,
+        args: [:query],
+        default_options: [
+          load: [:album_count, :latest_album_year_released, :cover_image_url]
+        ]
     end
 
     resource Tunez.Music.Album do
