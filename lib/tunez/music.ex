@@ -1,5 +1,29 @@
 defmodule Tunez.Music do
-  use Ash.Domain, otp_app: :tunez, extensions: [AshJsonApi.Domain, AshPhoenix]
+  use Ash.Domain,
+    otp_app: :tunez,
+    extensions: [AshGraphql.Domain, AshJsonApi.Domain, AshPhoenix]
+
+  graphql do
+    queries do
+      get Tunez.Music.Artist, :get_artist_by_id, :read
+      list Tunez.Music.Artist, :search_artists, :search
+    end
+
+    mutations do
+      create Tunez.Music.Artist, :create_artist, :create
+      update Tunez.Music.Artist, :update_artist, :update
+      destroy Tunez.Music.Artist, :destroy_artist, :destroy
+
+      # This is failing with
+      # The field "create_album" is not unique in type "RootMutationType".
+      # The field must have a unique name within that Object type; no two
+      # fields may share the same name.
+      #
+      # create Tunez.Music.Album, :create_album, :create
+      # update Tunez.Music.Album, :update_album, :update
+      # destroy Tunez.Music.Album, :destroy_album, :destroy
+    end
+  end
 
   json_api do
     routes do
