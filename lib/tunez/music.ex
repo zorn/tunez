@@ -14,14 +14,9 @@ defmodule Tunez.Music do
       update Tunez.Music.Artist, :update_artist, :update
       destroy Tunez.Music.Artist, :destroy_artist, :destroy
 
-      # This is failing with
-      # The field "create_album" is not unique in type "RootMutationType".
-      # The field must have a unique name within that Object type; no two
-      # fields may share the same name.
-      #
-      # create Tunez.Music.Album, :create_album, :create
-      # update Tunez.Music.Album, :update_album, :update
-      # destroy Tunez.Music.Album, :destroy_album, :destroy
+      create Tunez.Music.Album, :create_album, :create
+      update Tunez.Music.Album, :update_album, :update
+      destroy Tunez.Music.Album, :destroy_album, :destroy
     end
   end
 
@@ -74,7 +69,5 @@ defmodule Tunez.Music do
       define :update_album, action: :update
       define :destroy_album, action: :destroy
     end
-
-    resource Tunez.Music.Album
   end
 end
