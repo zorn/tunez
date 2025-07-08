@@ -33,6 +33,8 @@ config :spark,
     remove_parens?: true,
     "Ash.Resource": [
       section_order: [
+        :authentication,
+        :tokens,
         :graphql,
         :json_api,
         :postgres,
@@ -71,7 +73,7 @@ config :tunez,
   # ANSWER: From what I see, the codegen create timestamps with microseconds using this type.
   # QUESTION: If I changed this to microseconds after running the migrations would that create a problem?
   generators: [timestamp_type: :utc_datetime],
-  ash_domains: [Tunez.Music]
+  ash_domains: [Tunez.Accounts, Tunez.Music]
 
 # Configures the endpoint
 config :tunez, TunezWeb.Endpoint,
