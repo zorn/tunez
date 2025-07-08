@@ -100,6 +100,10 @@ defmodule Tunez.Accounts.User do
       change {AshAuthentication.Strategy.Password.HashPasswordChange, strategy_name: :password}
     end
 
+    update :set_role do
+      accept [:role]
+    end
+
     read :sign_in_with_password do
       description "Attempt to sign in using a email and password."
       get? true
@@ -280,6 +284,10 @@ defmodule Tunez.Accounts.User do
     policy action([:register_with_password, :sign_in_with_password]) do
       authorize_if always()
     end
+
+    policy action(:read) do
+      authorize_if expr(id == ^actor(:id))
+    end
   end
 
   attributes do
@@ -297,6 +305,11 @@ defmodule Tunez.Accounts.User do
     attribute :confirmed_at, :utc_datetime_usec
 
     # TODO: Consider adding timestamps to follow other resources?
+
+    attribute :role, Tunez.Accounts.Role do
+      allow_nil? false
+      default :user
+    end
   end
 
   identities do

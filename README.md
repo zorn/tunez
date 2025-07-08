@@ -16,3 +16,4 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 ## TODO
 
 - [ ] I'm curious what the `ex_docs` end up looking like on the final project. I enjoy a 1:1 context function and documentation block. I hope I can achieve the same with Ash.
+= [ ] Q: Curious how team / git conflicts are working for people using migration generators in practice.
