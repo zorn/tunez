@@ -1,5 +1,19 @@
 defmodule Tunez.Accounts do
-  use Ash.Domain, otp_app: :tunez, extensions: [AshJsonApi.Domain]
+  use Ash.Domain, otp_app: :tunez, extensions: [AshGraphql.Domain, AshJsonApi.Domain]
+
+  graphql do
+    queries do
+      # Q: is there anything that cleans up expired tokens in the database generated with this?
+      get Tunez.Accounts.User, :sign_in_user, :sign_in_with_password do
+        identity false
+        type_name :user_with_token
+      end
+    end
+
+    mutations do
+      create Tunez.Accounts.User, :register_user, :register_with_password
+    end
+  end
 
   json_api do
     routes do
